@@ -1,15 +1,15 @@
 import { RouterProvider } from "react-router-dom";
-import AppLayout from "./components/layout/AppLayout";
+// import AppLayout from "./components/layout/AppLayout";
 import router from "./router/router";
-
+import AnimeProvider from "./context/animeContext";
 
 function App() {
   return (
-<>
-<RouterProvider router={router}>
-  <AppLayout/>
-</RouterProvider>
-</>
+    <>
+      <AnimeProvider>
+        <RouterProvider router={router} />
+      </AnimeProvider>
+    </>
   );
 }
 
