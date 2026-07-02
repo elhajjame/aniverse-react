@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Compass, ChartColumnIncreasing } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -23,7 +22,6 @@ export default function Hero() {
           to="/anime"
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-600 px-8 py-3.5 font-bold text-white shadow-[0_0_25px_rgba(249,115,22,0.4)] transition-all duration-300 hover:scale-[1.02] hover:from-orange-600 hover:to-amber-700 hover:shadow-[0_0_35px_rgba(249,115,22,0.65)] sm:w-auto"
         >
-          <Compass className="h-5 w-5" />
           Explore Anime
         </Link>
 
@@ -31,7 +29,6 @@ export default function Hero() {
           to="/dashboard"
           className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-900/60 px-8 py-3.5 font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:border-slate-700 hover:bg-slate-800/80 sm:w-auto"
         >
-          <ChartColumnIncreasing className="h-5 w-5" />
           My Dashboard
         </Link>
       </div>

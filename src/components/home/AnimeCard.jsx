@@ -5,7 +5,7 @@ export default function AnimeCard({ anime }) {
   return (
     <Link
       to={`/anime`}
-      className="group flex flex-col overflow-hidden rounded-xl border border-slate-900 bg-[#0c0b16] shadow-lg transition-all duration-300 hover:border-orange-500/30 hover:shadow-orange-500/10"
+      className="col-span-6 md:col-span-4 lg:col-span-2 mx-auto w-[180px] group flex flex-col overflow-hidden rounded-xl border border-slate-900 bg-[#0c0b16] shadow-lg transition-all duration-300 hover:border-orange-500/30 hover:shadow-orange-500/10"
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-slate-900">
         <img
@@ -17,7 +17,7 @@ export default function AnimeCard({ anime }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
       </div>
 
-      <div className="flex flex-grow flex-col justify-between space-y-2 p-3.5">
+      <div className="flex flex-grow flex-col justify-between p-3.5">
         <h3 className="line-clamp-2 text-xs font-bold uppercase tracking-tight text-slate-200 transition-colors group-hover:text-orange-400">
           {anime.title}
         </h3>

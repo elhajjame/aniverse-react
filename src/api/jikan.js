@@ -2,12 +2,12 @@ import client from "./client";
 
 export const getTopAnime = async () => {
   const { data } = await client.get(`/top/anime`);
-  return data.data;
+  return data.data.slice(0, 6);
 };
 
 export const getSeasonalAnime = async () => {
   const { data } = await client.get("/seasons/now");
-  return data.data;
+  return data.data.slice(0, 6);
 };
 
 export const getCharacters = async () => {
@@ -25,4 +25,4 @@ export const getCharacterById = async (id) => {
   return data.data;
 };
 
-// export const 
+// export const
