@@ -1,5 +1,10 @@
 import client from "./client";
 
+export const getAllAnime = async () => {
+  const { data } = await client.get(`/anime`);
+  return data.data;
+};
+
 export const getTopAnime = async () => {
   const { data } = await client.get(`/top/anime`);
   return data.data.slice(0, 6);
@@ -25,4 +30,13 @@ export const getCharacterById = async (id) => {
   return data.data;
 };
 
-// export const
+export const searchAnime = async (query, genre) => {
+  const { data } = await client.get(`/anime?q=${query}`);
+
+  return data.data;
+};
+
+export const getGenres = async () => {
+  const { data } = await client.get("/genres/anime");
+  return data.data;
+};

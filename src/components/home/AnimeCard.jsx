@@ -4,7 +4,7 @@ import { Star } from "lucide-react";
 export default function AnimeCard({ anime }) {
   return (
     <Link
-      to={`/anime`}
+      to={`/anime/${anime.mal_id}`}
       className="col-span-6 md:col-span-4 lg:col-span-2 mx-auto w-[180px] group flex flex-col overflow-hidden rounded-xl border border-slate-900 bg-[#0c0b16] shadow-lg transition-all duration-300 hover:border-orange-500/30 hover:shadow-orange-500/10"
     >
       <div className="relative aspect-[3/4] overflow-hidden bg-slate-900">
