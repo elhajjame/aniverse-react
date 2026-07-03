@@ -13,6 +13,7 @@ import {
 
 export default function AnimeProvider({ children }) {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [AllAnime, setAllAnime] = useState([]);
   const [topAnime, setTopAnime] = useState([]);
   const [selectedAnime, setSelectedAnime] = useState(null);
@@ -23,9 +24,12 @@ export default function AnimeProvider({ children }) {
 
   const fetchAllAnime = async () => {
     setLoading(true);
+    setError(null);
     try {
       const data = await getAllAnime();
       setAllAnime(data);
+    } catch (err) {
+      setError(err.message || "Failed to fetch anime.");
     } finally {
       setLoading(false);
     }
@@ -33,9 +37,12 @@ export default function AnimeProvider({ children }) {
 
   const fetchTopAnime = async () => {
     setLoading(true);
+    setError(null);
     try {
       const data = await getTopAnime();
       setTopAnime(data);
+    } catch (err) {
+      setError(err.message || "Failed to fetch anime.");
     } finally {
       setLoading(false);
     }
@@ -43,9 +50,12 @@ export default function AnimeProvider({ children }) {
 
   const fetchAnimeById = async (id) => {
     setLoading(true);
+    setError(null);
     try {
       const data = await getAnimeById(id);
       setSelectedAnime(data);
+    } catch (err) {
+      setError(err.message || "Failed to fetch anime.");
     } finally {
       setLoading(false);
     }
@@ -53,10 +63,12 @@ export default function AnimeProvider({ children }) {
 
   const fetchSeasonalAnime = async () => {
     setLoading(true);
-
+    setError(null);
     try {
       const data = await getSeasonalAnime();
       setSeasonalAnime(data);
+    } catch (err) {
+      setError(err.message || "Failed to fetch anime.");
     } finally {
       setLoading(false);
     }
@@ -64,9 +76,12 @@ export default function AnimeProvider({ children }) {
 
   const fetchCharacter = async () => {
     setLoading(true);
+    setError(null);
     try {
       const data = await getCharacters();
       setCharacter(data);
+    } catch (err) {
+      setError(err.message || "Failed to fetch anime.");
     } finally {
       setLoading(false);
     }
@@ -74,17 +89,15 @@ export default function AnimeProvider({ children }) {
 
   const fetchCharacterById = async (id) => {
     setLoading(true);
+    setError(null);
     try {
       const data = await getCharacterById(id);
       setSelectedCharacter(data);
+    } catch (err) {
+      setError(err.message || "Failed to fetch anime.");
     } finally {
       setLoading(false);
     }
-  };
-
-  const fetchGenres = async () => {
-    const data = await getGenres();
-    setGenres(data);
   };
 
   const fetchSearchAnime = async (query, genre) => {
@@ -103,6 +116,7 @@ export default function AnimeProvider({ children }) {
         selectedAnime,
         topAnime,
         loading,
+        error,
         genres,
 
         fetchAllAnime,
@@ -111,7 +125,6 @@ export default function AnimeProvider({ children }) {
         fetchSeasonalAnime,
         fetchCharacter,
         fetchCharacterById,
-        fetchGenres,
         fetchSearchAnime,
       }}
     >

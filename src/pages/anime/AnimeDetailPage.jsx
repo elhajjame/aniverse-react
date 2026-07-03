@@ -4,6 +4,7 @@ import AnimeInfo from "../../components/animeDetails/AnimeInfo";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useAnime } from "../../context/animeContext";
+import Loading from "../../components/errorHandling/Loading";
 // import AnimeInfo from "../components/detail/AnimeInfo";
 
 function AnimeDetailPage() {
@@ -15,7 +16,7 @@ function AnimeDetailPage() {
     fetchAnimeById(id);
   }, [id]);
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (!selectedAnime) {

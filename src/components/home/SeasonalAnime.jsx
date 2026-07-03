@@ -1,12 +1,22 @@
 import { useEffect } from "react";
 import { useAnime } from "../../context/animeContext";
 import AnimeCard from "./AnimeCard";
+import Loading from "../errorHandling/Loading";
+import Error from "../errorHandling/Error";
 
 export default function SeasonalAnime() {
-  const { seasonalAnime, fetchSeasonalAnime } = useAnime();
+  const { loading, error, seasonalAnime, fetchSeasonalAnime } = useAnime();
   useEffect(() => {
     fetchSeasonalAnime();
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error message={error} />;
+  }
 
   return (
     <section>
