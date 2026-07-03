@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Star } from "lucide-react";
+import { useAnime } from "../../context/animeContext";
 
 export default function AnimeCard({ anime }) {
+
   return (
     <Link
       to={`/anime/${anime.mal_id}`}
