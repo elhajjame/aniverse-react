@@ -1,6 +1,7 @@
 import FavoriteList from "../components/favorite/FavoriteList";
 import PageHeader from "../components/PageHeader";
 
+
 function FavoritePage() {
   return (
     <div className="space-y-8 animate-fade-in">

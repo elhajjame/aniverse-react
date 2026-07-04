@@ -108,17 +108,14 @@ export default function AnimeProvider({ children }) {
     setAllAnime(data);
   };
 
-  useEffect(() => {
-    async function fetchFavorites() {
-      try {
-        const data = await getFavorite();
-        setFavorites(data);
-      } catch (err) {
-        console.log(err);
-      }
+  async function fetchFavorites() {
+    try {
+      const data = await getFavorite();
+      setFavorites(data);
+    } catch (err) {
+      console.log(err);
     }
-    fetchFavorites();
-  });
+  }
 
   // add anime to fav
 
@@ -180,6 +177,7 @@ export default function AnimeProvider({ children }) {
         fetchCharacter,
         fetchCharacterById,
         fetchSearchAnime,
+        fetchFavorites,
         addFavorites,
         unFavoritesAnime,
         isFavorite,
