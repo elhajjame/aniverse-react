@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import AnimeList from "../pages/anime/AnimeList";
 import AnimeDetailPage from "../pages/anime/AnimeDetailPage";
 import FavoritePage from "../pages/FavoritePage";
+import LibraryPage from "../pages/LibraryPage";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,14 @@ const router = createBrowserRouter([
     element: (
       <AppLayout>
         <FavoritePage />
+      </AppLayout>
+    ),
+  },
+  {
+    path: "/my-library",
+    element: (
+      <AppLayout>
+        <LibraryPage />
       </AppLayout>
     ),
   },
