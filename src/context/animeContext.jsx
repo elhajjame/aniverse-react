@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 export const AnimeContext = createContext();
 import {
   getAllAnime,
@@ -10,6 +10,7 @@ import {
   getTopAnime,
   searchAnime,
 } from "../api/jikan";
+import { addFavorite, getFavorite, removeFavorite } from "../api/favorites";
 
 export default function AnimeProvider({ children }) {
   const [loading, setLoading] = useState(false);
@@ -21,6 +22,7 @@ export default function AnimeProvider({ children }) {
   const [characters, setCharacter] = useState([]);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [genres, setGenres] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
   const fetchAllAnime = async () => {
     setLoading(true);
@@ -106,6 +108,56 @@ export default function AnimeProvider({ children }) {
     setAllAnime(data);
   };
 
+  async function fetchFavorites() {
+    try {
+      const data = await getFavorite();
+      console.log('this log: ',data);
+      setFavorites(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // add anime to fav
+
+  async function addFavorites(anime) {
+    const exist = favorites.some((fav) => fav.id === anime.id);
+    if (exist) return;
+    try {
+      const saveAnime = await addFavorites(anime);
+      setFavorites((prev) => [...prev, saveAnime]);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function unFavoritesAnime(id) {
+    try {
+      console.log("delete", id);
+      await removeFavorite(id);
+
+      setFavorites((perv) => perv.filter((anime) => anime.mal_id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function isFavorite(id) {
+    return favorites.some((anime) => anime.id === id);
+  }
+
+  async function toggleFavorite(anime) {
+    if (isFavorite(anime.id)) {
+      await removeFavorite(anime.id);
+
+      setFavorites((prev) => prev.filter((fav) => fav.id !== anime.id));
+    } else {
+      const savedAnime = await addFavorite(anime);
+
+      setFavorites((prev) => [...prev, savedAnime]);
+    }
+  }
+
   return (
     <AnimeContext.Provider
       value={{
@@ -118,6 +170,7 @@ export default function AnimeProvider({ children }) {
         loading,
         error,
         genres,
+        favorites,
 
         fetchAllAnime,
         fetchTopAnime,
@@ -126,6 +179,11 @@ export default function AnimeProvider({ children }) {
         fetchCharacter,
         fetchCharacterById,
         fetchSearchAnime,
+        fetchFavorites,
+        addFavorites,
+        unFavoritesAnime,
+        isFavorite,
+        toggleFavorite,
       }}
     >
       {children}

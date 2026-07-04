@@ -1,13 +1,27 @@
 import { Link } from "react-router-dom";
-import { Star } from "lucide-react";
+import { Star, Trash2 } from "lucide-react";
+import { useAnime } from "../../context/animeContext";
 
-export default function AnimeCard({ anime }) {
-
+function FavoriteCard({ anime }) {
+  const { unFavoritesAnime } = useAnime();
+  console.log("this is the anime", anime);
+  console.log();
   return (
     <Link
       to={`/anime/${anime.mal_id}`}
-      className="col-span-6 md:col-span-4 lg:col-span-2 mx-auto w-[180px] group flex flex-col overflow-hidden rounded-xl border border-slate-900 bg-[#0c0b16] shadow-lg transition-all duration-300 hover:border-orange-500/30 hover:shadow-orange-500/10"
+      className="relative col-span-6 md:col-span-4 lg:col-span-2 mx-auto w-[180px] group flex flex-col overflow-hidden rounded-xl border border-slate-900 bg-[#0c0b16] shadow-lg transition-all duration-300 hover:border-orange-500/30 hover:shadow-orange-500/10"
     >
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          unFavoritesAnime(anime.id);
+        }}
+        className="absolute right-2 top-2 z-20 rounded-lg bg-black/70 p-2 text-red-500 transition hover:bg-red-500 hover:text-white"
+      >
+        <Trash2 className="h-4 w-4" />
+      </button>
+
       <div className="relative aspect-[3/4] overflow-hidden bg-slate-900">
         <img
           src={anime.images.jpg.large_image_url}
@@ -37,3 +51,5 @@ export default function AnimeCard({ anime }) {
     </Link>
   );
 }
+
+export default FavoriteCard;

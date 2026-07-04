@@ -1,7 +1,10 @@
 import { Heart, BookOpen, Award } from "lucide-react";
+import { useAnime } from "../../context/animeContext";
 
 function AnimeSidebar({ anime }) {
   console.log(anime);
+  const { toggleFavorite } = useAnime();
+
   return (
     <aside className="space-y-6">
       <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-slate-900 bg-[#0c0b16] shadow-2xl">
@@ -11,7 +14,10 @@ function AnimeSidebar({ anime }) {
           className="h-full w-full object-cover"
         />
 
-        <button className="absolute right-4 top-4 rounded-xl border border-slate-800 bg-black/75 p-3.5 text-slate-300 backdrop-blur-md transition hover:text-white">
+        <button
+          onClick={() => toggleFavorite(anime)}
+          className="absolute right-4 top-4 rounded-xl border border-slate-800 bg-black/75 p-3.5 text-slate-300 backdrop-blur-md transition hover:text-white"
+        >
           <Heart className="h-5 w-5" />
         </button>
       </div>
@@ -36,7 +42,6 @@ function AnimeSidebar({ anime }) {
         </div>
       </div>
 
-      {/* Rating */}
       <div className="space-y-4 rounded-2xl border border-slate-900 bg-[#0c0b16] p-5 shadow-xl">
         <h3 className="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-slate-200">
           <Award className="h-4 w-4 text-orange-500" />

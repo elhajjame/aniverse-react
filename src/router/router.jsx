@@ -3,6 +3,7 @@ import AppLayout from "../components/layout/AppLayout";
 import Home from "../pages/Home";
 import AnimeList from "../pages/anime/AnimeList";
 import AnimeDetailPage from "../pages/anime/AnimeDetailPage";
+import FavoritePage from "../pages/FavoritePage";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
     element: (
       <AppLayout>
         <AnimeDetailPage />
+      </AppLayout>
+    ),
+  },
+  {
+    path: "/favorites",
+    element: (
+      <AppLayout>
+        <FavoritePage />
       </AppLayout>
     ),
   },
