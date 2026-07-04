@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { Star, Trash2 } from "lucide-react";
+import { useAnime } from "../../context/animeContext";
 
 function FavoriteCard({ anime }) {
+  const { unFavoritesAnime } = useAnime();
   console.log("this is the anime", anime);
+  console.log();
   return (
     <Link
       to={`/anime/${anime.mal_id}`}
@@ -12,7 +15,7 @@ function FavoriteCard({ anime }) {
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          // delete favorite here
+          unFavoritesAnime(anime.id);
         }}
         className="absolute right-2 top-2 z-20 rounded-lg bg-black/70 p-2 text-red-500 transition hover:bg-red-500 hover:text-white"
       >

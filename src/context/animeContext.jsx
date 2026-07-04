@@ -111,6 +111,7 @@ export default function AnimeProvider({ children }) {
   async function fetchFavorites() {
     try {
       const data = await getFavorite();
+      console.log('this log: ',data);
       setFavorites(data);
     } catch (err) {
       console.log(err);
@@ -132,6 +133,7 @@ export default function AnimeProvider({ children }) {
 
   async function unFavoritesAnime(id) {
     try {
+      console.log("delete", id);
       await removeFavorite(id);
 
       setFavorites((perv) => perv.filter((anime) => anime.mal_id !== id));

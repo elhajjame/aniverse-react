@@ -1,24 +1,18 @@
-const URL = "http://localhost:3001";
+import axios from "axios";
+
+const URL = import.meta.env.VITE_API_URL;
 
 export async function getFavorite() {
-  const res = await fetch(`${URL}/favorites`);
-  return res.json();
+  const { data } = await axios.get(`${URL}/favorites`);
+  return data;
 }
 
 export async function addFavorite(anime) {
-  const res = await fetch(`${URL}/favorites`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(anime),
-  });
-
-  return res.json();
+  const { data } = await axios.post(`${URL}/favorites`, anime);
+  return data;
 }
 
 export async function removeFavorite(id) {
-  await fetch(`${URL}/favorites/${id}`, {
-    method: "DELETE",
-  });
+  const { data } = await axios.delete(`${URL}/favorites/${id}`);
+  return data;
 }
