@@ -29,6 +29,7 @@ const characters = [
 ];
 
 function AnimeInfo({ anime }) {
+  console.log("aSDFRTGYUIOLKJNHBVC", anime.genres);
   return (
     <div className="space-y-8 md:col-span-2">
       <div className="space-y-4">
@@ -77,7 +78,7 @@ function AnimeInfo({ anime }) {
           </span>
           <span className="mt-1 block font-semibold text-slate-200">
             {anime.studios.map((std) => (
-              <span key={std.name}>{std.name}</span>
+              <span>{std.name}</span>
             ))}
           </span>
         </div>

@@ -5,12 +5,13 @@ import {
   getAnimeById,
   getCharacterById,
   getCharacters,
+  getGenres,
   getSeasonalAnime,
   getTopAnime,
   searchAnime,
 } from "../api/jikan";
 import { addFavorite, getFavorite, removeFavorite } from "../api/favorites";
-import { addLibrary, getLibrary } from "../api/library";
+import { addLibrary } from "../api/library";
 
 export default function AnimeProvider({ children }) {
   const [loading, setLoading] = useState(false);
@@ -112,6 +113,7 @@ export default function AnimeProvider({ children }) {
   async function fetchFavorites() {
     try {
       const data = await getFavorite();
+      console.log("this log: ", data);
       setFavorites(data);
     } catch (err) {
       console.log(err);
@@ -133,6 +135,7 @@ export default function AnimeProvider({ children }) {
 
   async function unFavoritesAnime(id) {
     try {
+      console.log("delete", id);
       await removeFavorite(id);
 
       setFavorites((perv) => perv.filter((anime) => anime.mal_id !== id));
@@ -171,7 +174,7 @@ export default function AnimeProvider({ children }) {
       console.log(error);
     }
   }
-  
+
   return (
     <AnimeContext.Provider
       value={{
@@ -185,7 +188,6 @@ export default function AnimeProvider({ children }) {
         error,
         genres,
         favorites,
-        library,
 
         fetchAllAnime,
         fetchTopAnime,
