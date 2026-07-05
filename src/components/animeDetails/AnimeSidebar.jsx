@@ -1,10 +1,21 @@
 import { Heart, BookOpen, Award } from "lucide-react";
 import { useAnime } from "../../context/animeContext";
+import { useState } from "react";
 
 function AnimeSidebar({ anime }) {
-  console.log(anime);
-  const { toggleFavorite } = useAnime();
+  const [status, setStatus] = useState("");
+  const { toggleFavorite, addToLibrary } = useAnime();
+  function handleStatusChange(e) {
+    // e.preventDefault();
 
+    const newStatus = e.target.value;
+
+    setStatus(newStatus);
+
+    if (newStatus !== "") {
+      addToLibrary(anime, newStatus);
+    }
+  }
   return (
     <aside className="space-y-6">
       <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-slate-900 bg-[#0c0b16] shadow-2xl">
@@ -33,11 +44,15 @@ function AnimeSidebar({ anime }) {
             My Status
           </label>
 
-          <select className="w-full rounded-xl border border-slate-800 bg-[#04030a] px-3 py-2.5 text-sm text-slate-200 outline-none transition focus:border-orange-500/50">
-            <option>Not in Library</option>
-            <option>Plan To Watch</option>
-            <option>Watching</option>
-            <option>Completed</option>
+          <select
+            value={status}
+            onChange={handleStatusChange}
+            className="w-full rounded-xl border border-slate-800 bg-[#04030a] px-3 py-2.5 text-sm text-slate-200 outline-none transition focus:border-orange-500/50"
+          >
+            <option value="">Not in Library</option>
+            <option value="plan to watch">Plan To Watch</option>
+            <option value="watching">Watching</option>
+            <option value="completed">Completed</option>
           </select>
         </div>
       </div>

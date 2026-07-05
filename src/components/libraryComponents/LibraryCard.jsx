@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { Trash2, Star } from "lucide-react";
 
-function LibraryCard() {
+function LibraryCard({ item }) {
+  const { anime } = item;
   return (
     <div className="col-span-6 md:col-span-4 lg:col-span-2 group mx-auto w-[180px] flex flex-col justify-between overflow-hidden rounded-xl border border-slate-900 bg-[#0c0b16] shadow-lg transition-all duration-300 hover:border-orange-500/30 hover:shadow-orange-500/10">
       <div className="relative">
@@ -10,7 +11,7 @@ function LibraryCard() {
           className="relative block aspect-[3/4] overflow-hidden bg-slate-900"
         >
           <img
-            src="https://cdn.myanimelist.net/images/anime/10/19969.jpg"
+            src={anime.images.jpg.large_image_url}
             alt=""
             className="h-full w-full object-cover"
           />
@@ -29,9 +30,9 @@ function LibraryCard() {
       </div>
 
       <div className="flex flex-grow flex-col justify-between space-y-3 p-3">
-        <Link to={`/anime/`}>
+        <Link to={`/anime/${anime.mal_id}`}>
           <h3 className="line-clamp-2 text-xs font-bold uppercase leading-snug tracking-tight text-slate-200 transition-colors hover:text-orange-400 sm:text-[13px]">
-            test title
+            {anime.title}
           </h3>
         </Link>
 
@@ -39,7 +40,7 @@ function LibraryCard() {
           <div className="flex justify-between font-semibold">
             <span className="flex items-center gap-0.5 text-orange-400">
               <Star className="h-3 w-3 fill-orange-500 text-orange-500" />
-              test score 66
+              {anime.score}
             </span>
 
             <span>10 ep</span>

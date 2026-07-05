@@ -11,7 +11,7 @@ import {
   searchAnime,
 } from "../api/jikan";
 import { addFavorite, getFavorite, removeFavorite } from "../api/favorites";
-import { addLibrary } from "../api/library";
+import { addLibrary, getLibrary } from "../api/library";
 
 export default function AnimeProvider({ children }) {
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,7 @@ export default function AnimeProvider({ children }) {
   const [genres, setGenres] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [library, setLibrary] = useState([]);
-
+  console.log("################", library);
   const fetchAllAnime = async () => {
     setLoading(true);
     setError(null);
@@ -113,7 +113,6 @@ export default function AnimeProvider({ children }) {
   async function fetchFavorites() {
     try {
       const data = await getFavorite();
-      console.log("this log: ", data);
       setFavorites(data);
     } catch (err) {
       console.log(err);
@@ -161,17 +160,29 @@ export default function AnimeProvider({ children }) {
   }
 
   async function addToLibrary(anime, status) {
-    console.log("anime status", anime, status);
-    console.log("libbbbbbb", library);
     try {
-      const exist = library.some((lib) => lib.id === anime.id);
-      console.log("exist", exist);
-      if (exist) return;
-      const saveLibrary = await addLibrary({ ...anime, status });
-      console.log("save to lib", saveLibrary);
+      const exist = library.some((lib) => {
+        return lib.anime.mal_id === anime.mal_id;
+      });
+      if (exist) {
+        return;
+      }
+      const saveLibrary = await addLibrary({ anime, status });
       setLibrary((prev) => [...prev, saveLibrary]);
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async function fetchLibrary() {
+    try {
+      setLoading(true);
+      const data = await getLibrary();
+      setLibrary(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -188,6 +199,7 @@ export default function AnimeProvider({ children }) {
         error,
         genres,
         favorites,
+        library,
 
         fetchAllAnime,
         fetchTopAnime,
@@ -202,6 +214,7 @@ export default function AnimeProvider({ children }) {
         isFavorite,
         toggleFavorite,
         addToLibrary,
+        fetchLibrary,
       }}
     >
       {children}
