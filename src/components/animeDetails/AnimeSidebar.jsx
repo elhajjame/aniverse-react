@@ -1,23 +1,20 @@
 import { Heart, BookOpen, Award } from "lucide-react";
 import { useAnime } from "../../context/animeContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function AnimeSidebar({ anime }) {
   const { toggleFavorite, library, addToLibrary } = useAnime();
   const [status, setStatus] = useState("");
-  console.log("status heh: ", status);
-  console.log("library:", library);
+
+  useEffect(() => {
+    if (status !== "") {
+      addToLibrary(anime, status);
+    }
+  }, [status, anime, addToLibrary]);
 
   function handleStatusChange(e) {
-    e.preventDefault();
-
-    const newStatus = e.target.value;
-
-    setStatus(newStatus);
-
-    if (newStatus !== "") {
-      addToLibrary(anime, newStatus);
-    }
+    e.stopPropagation();
+    setStatus(e.target.value);
   }
   return (
     <aside className="space-y-6">

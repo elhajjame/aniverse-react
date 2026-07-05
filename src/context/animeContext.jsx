@@ -156,6 +156,7 @@ export default function AnimeProvider({ children }) {
       setFavorites((prev) => [...prev, savedAnime]);
     }
   }
+
   async function addToLibrary(anime, status) {
     console.log("anime status", anime, status);
     console.log("libbbbbbb", library);
@@ -170,6 +171,7 @@ export default function AnimeProvider({ children }) {
       console.log(error);
     }
   }
+  
   return (
     <AnimeContext.Provider
       value={{
