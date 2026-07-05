@@ -5,6 +5,7 @@ import AnimeList from "../pages/anime/AnimeList";
 import AnimeDetailPage from "../pages/anime/AnimeDetailPage";
 import FavoritePage from "../pages/FavoritePage";
 import LibraryPage from "../pages/LibraryPage";
+import CharactersPage from "../pages/character/CharactersPage";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
     element: (
       <AppLayout>
         <LibraryPage />
+      </AppLayout>
+    ),
+  },
+  {
+    path: "/characters",
+    element: (
+      <AppLayout>
+        <CharactersPage />
       </AppLayout>
     ),
   },
