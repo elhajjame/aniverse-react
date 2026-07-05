@@ -8,7 +8,7 @@ import EmptyFavorites from "../components/favorite/EmptyFavorites";
 
 function FavoritePage() {
   const { loading, error, favorites, fetchFavorites } = useAnime();
-  console.log("tdgbhjsk", favorites);
+
   useEffect(() => {
     fetchFavorites();
   }, []);

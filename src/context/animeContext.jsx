@@ -122,6 +122,7 @@ export default function AnimeProvider({ children }) {
 
   async function addFavorites(anime) {
     const exist = favorites.some((fav) => fav.id === anime.id);
+
     if (exist) return;
     try {
       const saveAnime = await addFavorites(anime);
@@ -142,12 +143,10 @@ export default function AnimeProvider({ children }) {
     }
   }
 
-  function isFavorite(id) {
-    return favorites.some((anime) => anime.id === id);
-  }
-
   async function toggleFavorite(anime) {
-    if (isFavorite(anime.id)) {
+    const exist = favorites.some((fav) => fav.mal_id === anime.mal_id);
+    console.log(exist);
+    if (exist) {
       await removeFavorite(anime.id);
 
       setFavorites((prev) => prev.filter((fav) => fav.id !== anime.id));
@@ -157,7 +156,6 @@ export default function AnimeProvider({ children }) {
       setFavorites((prev) => [...prev, savedAnime]);
     }
   }
-
   async function addToLibrary(anime, status) {
     try {
       const exist = library.some((lib) => {
@@ -223,7 +221,7 @@ export default function AnimeProvider({ children }) {
         fetchFavorites,
         addFavorites,
         unFavoritesAnime,
-        isFavorite,
+        // isFavorite,
         toggleFavorite,
         addToLibrary,
         fetchLibrary,

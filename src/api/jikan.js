@@ -30,7 +30,7 @@ export const getCharacterById = async (id) => {
   return data.data;
 };
 
-export const searchAnime = async (query, genre) => {
+export const searchAnime = async (query) => {
   const { data } = await client.get(`/anime?q=${query}`);
 
   return data.data;
