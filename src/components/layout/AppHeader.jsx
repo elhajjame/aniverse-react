@@ -71,7 +71,7 @@ export default function AppHeader() {
 
         <div className="md:hidden">
           <select className="rounded-lg border border-slate-800 bg-slate-900 px-3 py-1.5 text-xs text-slate-200 focus:outline-none">
-            <option>Home</option>
+            <option >Home</option>
             <option>Anime</option>
             <option>Characters</option>
             <option>Favorites</option>

@@ -5,12 +5,10 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useAnime } from "../../context/animeContext";
 import Loading from "../../components/errorHandling/Loading";
-// import AnimeInfo from "../components/detail/AnimeInfo";
 
 function AnimeDetailPage() {
   const { id } = useParams();
   const { loading, selectedAnime, fetchAnimeById } = useAnime();
-  console.log(id);
 
   useEffect(() => {
     fetchAnimeById(id);
