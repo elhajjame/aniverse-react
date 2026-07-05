@@ -11,7 +11,7 @@ import {
   searchAnime,
 } from "../api/jikan";
 import { addFavorite, getFavorite, removeFavorite } from "../api/favorites";
-import { addLibrary, getLibrary } from "../api/library";
+import { addLibrary, getLibrary, patchStatus } from "../api/library";
 
 export default function AnimeProvider({ children }) {
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,7 @@ export default function AnimeProvider({ children }) {
   const [genres, setGenres] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [library, setLibrary] = useState([]);
-  console.log("################", library);
+  const [status, setStatus] = useState("");
   const fetchAllAnime = async () => {
     setLoading(true);
     setError(null);
@@ -113,13 +113,12 @@ export default function AnimeProvider({ children }) {
   async function fetchFavorites() {
     try {
       const data = await getFavorite();
+      console.log("fetch fav", data);
       setFavorites(data);
     } catch (err) {
       console.log(err);
     }
   }
-
-  // add anime to fav
 
   async function addFavorites(anime) {
     const exist = favorites.some((fav) => fav.id === anime.id);
@@ -134,10 +133,10 @@ export default function AnimeProvider({ children }) {
 
   async function unFavoritesAnime(id) {
     try {
-      console.log("delete", id);
       await removeFavorite(id);
 
-      setFavorites((perv) => perv.filter((anime) => anime.mal_id !== id));
+      setFavorites((perv) => perv.filter((anime) => anime.id !== id));
+      console.log(favorites);
     } catch (error) {
       console.error(error);
     }
@@ -186,6 +185,17 @@ export default function AnimeProvider({ children }) {
     }
   }
 
+  async function updateStatus(status, id) {
+    try {
+      const updatedStatus = await patchStatus(id, { status });
+      setLibrary((prev) =>
+        prev.map((anime) => (anime.id === id ? updatedStatus : anime)),
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <AnimeContext.Provider
       value={{
@@ -200,6 +210,8 @@ export default function AnimeProvider({ children }) {
         genres,
         favorites,
         library,
+        status,
+        setStatus,
 
         fetchAllAnime,
         fetchTopAnime,
@@ -215,6 +227,7 @@ export default function AnimeProvider({ children }) {
         toggleFavorite,
         addToLibrary,
         fetchLibrary,
+        updateStatus,
       }}
     >
       {children}

@@ -10,8 +10,7 @@ import Loading from "../../components/errorHandling/Loading";
 function AnimeDetailPage() {
   const { id } = useParams();
   const { loading, selectedAnime, fetchAnimeById } = useAnime();
-  console.log(id);
-
+  
   useEffect(() => {
     fetchAnimeById(id);
   }, [id]);

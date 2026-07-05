@@ -1,13 +1,9 @@
 import { Heart, BookOpen, Award } from "lucide-react";
 import { useAnime } from "../../context/animeContext";
-import { useState } from "react";
 
 function AnimeSidebar({ anime }) {
-  const [status, setStatus] = useState("");
-  const { toggleFavorite, addToLibrary } = useAnime();
+  const { status, setStatus, toggleFavorite, addToLibrary } = useAnime();
   function handleStatusChange(e) {
-    // e.preventDefault();
-
     const newStatus = e.target.value;
 
     setStatus(newStatus);

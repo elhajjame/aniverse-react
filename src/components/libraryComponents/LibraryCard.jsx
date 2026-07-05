@@ -1,13 +1,21 @@
 import { Link } from "react-router-dom";
 import { Trash2, Star } from "lucide-react";
+import { useAnime } from "../../context/animeContext";
 
 function LibraryCard({ item }) {
-  const { anime } = item;
+  const { anime, id } = item;
+  const { updateStatus } = useAnime();
+
+  function handleStatusChange(e) {
+
+    updateStatus(e.target.value, id);
+  }
+
   return (
     <div className="col-span-6 md:col-span-4 lg:col-span-2 group mx-auto w-[180px] flex flex-col justify-between overflow-hidden rounded-xl border border-slate-900 bg-[#0c0b16] shadow-lg transition-all duration-300 hover:border-orange-500/30 hover:shadow-orange-500/10">
       <div className="relative">
         <Link
-          to={""}
+          to={`/anime/${anime.mal_id}`}
           className="relative block aspect-[3/4] overflow-hidden bg-slate-900"
         >
           <img
@@ -45,10 +53,14 @@ function LibraryCard({ item }) {
 
             <span>10 ep</span>
           </div>
-          <select className="cursor-pointer mt-1.5 w-full rounded-lg border border-slate-800 bg-[#04030a] px-2 py-1.5 text-[10px] font-bold text-slate-300 outline-none focus:border-orange-500/50">
-            <option value="">Plan To Watch</option>
-            <option value="">Watching</option>
-            <option value="">Completed</option>
+          <select
+            value={anime.status}
+            onChange={handleStatusChange}
+            className="cursor-pointer mt-1.5 w-full rounded-lg border border-slate-800 bg-[#04030a] px-2 py-1.5 text-[10px] font-bold text-slate-300 outline-none focus:border-orange-500/50"
+          >
+            <option value="plan to watch">Plan To Watch</option>
+            <option value="watching">Watching</option>
+            <option value="completed">Completed</option>
           </select>
         </div>
       </div>
